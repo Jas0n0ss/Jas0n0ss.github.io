@@ -6,12 +6,21 @@
 title: 'OSS Dcos'
 subtitle: '爱国，求实，奋进！'
 description: 'OSS docs'
-keywords:
+keywords: Linux
 author: Jason Hu
 language: zh-CN
 timezone: ''
 
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000
+  content: true
 
+# music
+aplayer:
+  meting: true
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
@@ -49,15 +58,16 @@ future: true
 highlight:
   enable: true
   line_number: false
-  auto_detect: false
+  auto_detect: true
   tab_replace: ''
   wrap: true
-  hljs: false
+  hljs: true
+
 prismjs:
   enable: false
   preprocess: true
   line_number: false
-  tab_replace: ''
+  tab_replace:
 
 # Home page setting
 # path: Root path for your blogs index page. (default = '')

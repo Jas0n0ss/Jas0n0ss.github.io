@@ -1,7 +1,9 @@
 ---
 title: Linux client  login windows SQL Server with keytab
 date: 2022-09-16 16:37:40
-tags: SQL Server,AD
+tags: 
+  - AD
+  - SQL Server
 description: Linux client  login windows SQL Server with keytab
 ---
 

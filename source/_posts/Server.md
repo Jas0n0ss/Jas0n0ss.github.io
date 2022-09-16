@@ -1,7 +1,9 @@
 ---
 title: Linux client with AD authentication login windows SQL Server
 date: 2022-09-16 16:35:02
-tags: Linux, AD
+tags: 
+  - AD
+  - SQL Server
 description: Linux client with AD authentication login windows SQL Server
 ---
 
@@ -58,7 +60,7 @@ Valid starting       Expires              Service principal
 sqladmin@sqlrepro.edu
 [sqladmin@sqlrepro.edu@linux ~]$ sqlcmd -S primarydc -E -Q'select system_user'
                                                                                                            
---------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------
 SQLREPRO\sqladmin                                                                                          
 
 (1 rows affected)

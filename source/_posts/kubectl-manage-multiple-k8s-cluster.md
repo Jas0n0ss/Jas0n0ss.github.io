@@ -2,7 +2,7 @@
 title: kubectl-manage-multiple-k8s-cluster
 date: 2022-09-16 16:29:09
 tags: kubernets,kubecm 
-categories: Linux,OSS
+categories: OSS
 description: 'kubectl-manage-multiple-k8s-cluster'
 ---
 

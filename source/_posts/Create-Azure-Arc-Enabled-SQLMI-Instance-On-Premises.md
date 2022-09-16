@@ -2,7 +2,7 @@
 title: Create Azure Arc-enabled SQLMI Instance On-Premises
 tags: [Azure,SQL Server]
 categories: [Linux,OSS,MSSQL]
-description:  Create Azure Arc-enabled SQLMI Instance On-Premises
+description: 'Create Azure Arc-enabled SQLMI Instance On-Premises'
 ---
 
 ## Create Azure Arc-enabled SQLMI Instance On-Premises
@@ -115,9 +115,8 @@ NAME   STATUS   REPLICAS   PRIMARY-ENDPOINT     AGE
 sql1   Ready    2          10.157.21.15,32697   22m
 [root@node1 arc]# yum install mssql-tools -y
 [root@node1 arc]# /opt/mssql-tools/bin/sqlcmd -S 10.157.21.15,32697 -Uadmin -Q 'select @@version'
-Password:
-                                                                                                                                                                             
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Password:                                                                                                                                                                     
+-------------------------------------------------------------------------
 Microsoft Azure SQL Managed Instance - Azure Arc - 16.0.312.4243 (X64)
         Jul  2 2022 13:16:53
         Copyright (C) 2022 Microsoft Corporation
