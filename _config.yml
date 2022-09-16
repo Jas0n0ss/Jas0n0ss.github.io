@@ -11,8 +11,7 @@ author: Jason Hu
 language: zh-CN
 timezone: ''
 
-# 这个时间将在站点的底部显示，例如 © 2013 - 2015。
-since: 2019
+
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
@@ -108,3 +107,4 @@ theme: next
 deploy:
   type: git
   repo: git@github.com:Jas0n0ss/Jas0n0ss.github.io.git
+  brance: master

@@ -8,25 +8,17 @@ date: 2022-09-16 10:00:54
 This is Jason and an Microsoft Engineer, interested in OSS.
 
 
-- Microsoft Engineer
+```yaml
 - Kills:
     - Linux & Windows administration
-    - Automation:
-      - Ansible
-      - Saltstack
-      - Puppet
-      - Chef
+    - Automation: Ansible,Saltstack,Puppet,Chef
     - Middleware:
       - Nginx & Apache 
       - Weblogic & WebSphere
       - LVS & Haproxy & Keepalived
-    - Databases:
-      - SQL Server
-      - Redis
-      - MySQL
-    - Devops ：
-      - jenkins
-      - docker 
-      - kubernets
-      - Maven
-      - git & gitops & git devops  
+    - Databases: Mysql,SQL Server,Redis,Memcache
+    - Devops ：Jenkins,Docker,Kuberbets,Maven,Git Git ops
+    - Code: Python,Shell,SQL
+    - Cloud: Azure,AWS,Aliyun,Tecent Cloud...
+    - Hobby: Hackintosh,raspberry,OpenWrt...
+```    
