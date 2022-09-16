@@ -50,8 +50,8 @@ if we have on-premise k8s and azure k8s:
   - kubecm
   https://github.com/sunny0826/kubecm
   ```bash
-  [root@node1 ~]# wget https://github.com/sunny0826/kubecm/releases/download/v0.21.0/kubecm_v0.21.0_Linux_x86_64.tar.gz
-  [root@node1 ~]# tar -zxvf kubecm_v0.21.0_Linux_x86_64.tar.gz
+[root@node1 ~]# wget https://github.com/sunny0826/kubecm/releases/download/v0.21.0/kubecm_v0.21.0_Linux_x86_64.tar.gz
+[root@node1 ~]# tar -zxvf kubecm_v0.21.0_Linux_x86_64.tar.gz
 [root@node1 ~]# echo $PATH
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin
 [root@node1 ~]# mv kubecm /usr/local/sbin
