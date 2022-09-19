@@ -8,7 +8,7 @@ on:
 env:
   GIT_USER: Jas0n0ss
   GIT_EMAIL: job.bo@outlook.com
-  THEME_REPO: https://github.com/theme-next/hexo-theme-next.git
+  THEME_REPO: theme-next/hexo-theme-next
   THEME_BRANCH: master
   DEPLOY_REPO: Jas0n0ss/Jas0n0ss.github.io
   DEPLOY_BRANCH: master
