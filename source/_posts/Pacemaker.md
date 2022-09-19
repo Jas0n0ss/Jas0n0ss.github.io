@@ -106,29 +106,17 @@ GRANT CONNECT ON ENDPOINT::TBSSQLAG TO TBSAGUser;
 ```
 - Create Availability Group using SSMS with Cluster type External
 ```bash
-# Create a new login or use the same login to give Pacemaker permission and provide view server permission, I will give 
-
-#sysadmin to this user just for this demo
-
-# On all Nodes Edit vi /var/opt/mssql/secrets/passwd using emacs and update with user and password that you created for 
-
-Pacemaker and save it
-
+# Create a new login or use the same login to give Pacemaker permission and provide view server permission, I will give sysadmin to this user just for this demo.On all Nodes Edit vi /var/opt/mssql/secrets/passwd using emacs and update with user and password that you created for Pacemaker and save it
+vim /var/opt/mssql/secrets/passwd
 TBSAGUser
 Pass@123
-# Hold down the CTRL key and then press X, then C, to exit and save the file
 # setup right permission
 sudo chmod 400 /var/opt/mssql/secrets/passwd
-
 # Create the AG resource in the Pacemaker cluster
 sudo pcs resource create TBSLinuxRG ocf:mssql:ag ag_name=TBSLinuxAG meta failure-timeout=30s --master meta notify=true
-
 # Create IP resource for Listener 
 sudo pcs resource create LinuxSQLProdList ocf:heartbeat:IPaddr2 ip=192.168.1.104 cidr_netmask=24
-
-# Create an ordering constraint to ensure that the AG resource is up and running before the IP address. While the colocation 
-
-#constraint implies an ordering constraint, this enforces it
+# Create an ordering constraint to ensure that the AG resource is up and running before the IP address. While the colocation constraint implies an ordering constraint, this enforces it
 sudo pcs constraint order promote TBSLinuxRG-master then start LinuxSQLProdList
 
 # Let's Test Failover

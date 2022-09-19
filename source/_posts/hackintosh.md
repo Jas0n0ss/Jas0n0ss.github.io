@@ -10,7 +10,7 @@ categories: macOS
 ## hackintosh in intel platform
 ### hardware
 ```yaml
-motherboard: 'ROG B365-i'
+Motherboard: 'ROG B365-i'
 CPU: I9-9900
 GPU: AMD-RX590
 ```
