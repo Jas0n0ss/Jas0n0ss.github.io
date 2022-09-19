@@ -129,8 +129,8 @@ Microsoft Azure SQL Managed Instance - Azure Arc - 16.0.312.4243 (X64)
 Azure Data Studio:
 https://docs.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio?view=sql-server-ver16
 
-![](https://img2022.cnblogs.com/blog/1715511/202209/1715511-20220909100338097-1615601437.png)
+![](images/1715511-20220909100338097-1615601437.png)
 - kibana Dashboard:
-![](https://img2022.cnblogs.com/blog/1715511/202209/1715511-20220909100450574-1462693194.png)
+![](images/1715511-20220909100450574-1462693194.png)
 - Grafana Dashboard
-![](https://img2022.cnblogs.com/blog/1715511/202209/1715511-20220909100700776-934704336.png)
+![](images/1715511-20220909100700776-934704336.png)
