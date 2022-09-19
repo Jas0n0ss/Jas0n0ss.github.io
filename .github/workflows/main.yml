@@ -1,44 +1,67 @@
-name: HEXO CI
+name: hexo deploy
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
+
+env:
+  GIT_USER: Jas0n0ss
+  GIT_EMAIL: job.bo@outlook.com
+  THEME_REPO: https://github.com/theme-next/hexo-theme-next.git
+  THEME_BRANCH: master
+  DEPLOY_REPO: Jas0n0ss/Jas0n0ss.github.io
+  DEPLOY_BRANCH: master
 
 jobs:
   build:
+    name: Build on node ${{ matrix.node_version }} and ${{ matrix.os }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: 16.17.0
+        os: [ubuntu-latest]
+        node_version: [16.x]
 
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout
+        uses: actions/checkout@v3
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - name: Checkout theme repo
+        uses: actions/checkout@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          repository: ${{ env.THEME_REPO }}
+          ref: ${{ env.THEME_BRANCH }}
+          path: themes/next
+
+      - name: Checkout deploy repo
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ env.DEPLOY_REPO }}
+          ref: ${{ env.DEPLOY_BRANCH }}
+          path: .deploy_git
+
+      - name: Use Node.js ${{ matrix.node_version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node_version }}
 
       - name: Configuration environment
         env:
           HEXO_DEPLOY_PRI: ${{secrets.HEXO_DEPLOY_PRI}}
         run: |
+          sudo timedatectl set-timezone "Asia/Shanghai"
           mkdir -p ~/.ssh/
           echo "$HEXO_DEPLOY_PRI" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan github.com >> ~/.ssh/known_hosts
-          git config --global user.name "Jas0n0ss"
-          git config --global user.email "job.bo@outlook.com"
+          git config --global user.name $GIT_USER
+          git config --global user.email $GIT_EMAIL
+          cp _config.theme.yml themes/next/_config.yml
 
       - name: Install dependencies
         run: |
-          npm i -g hexo-cli
-          npm i
+          npm install
 
       - name: Deploy hexo
         run: |
-          hexo g -d
+          npm run deploy
