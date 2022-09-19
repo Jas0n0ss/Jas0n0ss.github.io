@@ -3,7 +3,7 @@ title: kubectl-manage-multiple-k8s-cluster
 date: 2022-09-16 16:29:09
 tags: kubernets,kubecm 
 categories: OSS
-description: 'kubectl-manage-multiple-k8s-cluster'
+#description: 'kubectl-manage-multiple-k8s-cluster'
 ---
 
 > Usually when we execute `kubectl` command it will load default k8s configuration from `$HOME/.kube/config`

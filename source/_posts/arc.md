@@ -4,7 +4,7 @@ date: 2022-09-16 16:39:28
 tags: 
   - OSS
   - SQL Server
-description:  Azure-arc enabled SQLMI instance Password and Username Encode and Decode
+#description:  Azure-arc enabled SQLMI instance Password and Username Encode and Decode
 ---
 
 ```bash
