@@ -38,10 +38,10 @@ DBCC TRACEON(1204,1222, -1)
 DBCC TRACEOFF(1204,1222, -1)
 ```
 
-- How to create deliberate deadlock
-```sql
--- Tran1
 
+```sql
+--create deliberate deadlock
+-- Tran1
 CREATE TABLE DemoDeadLock1 (SessionNumber INT)
 INSERT DemoDeadLock1 SELECT 1
 
@@ -54,14 +54,17 @@ INSERT DemoDeadLock2 SELECT 1
 BEGIN TRAN
 UPDATE  DemoDeadLock1 SET  SessionNumber= 1
 ```
+
 ```sql
 --Tran3
 BEGIN TRAN
 UPDATE  DemoDeadLock2 SET SessionNumber = 1
 UPDATE  DemoDeadLock1 SET SessionNumber = 1
 ```
-- Let's update Demodeadlock2 table in our Tran2 session
+
+
 ```sql
+--update Demodeadlock2 table in our Tran2 session
 UPDATE DemoDeadLock2 SET SessionNumber = 1
 ```
 
