@@ -1,0 +1,42 @@
+{%- if theme.canvas_ribbon.enable %}
+  <script size="{{ theme.canvas_ribbon.size }}" alpha="{{ theme.canvas_ribbon.alpha }}" zIndex="{{ theme.canvas_ribbon.zIndex }}" src="{{ theme.vendors.canvas_ribbon.url }}"></script>
+{%- endif %}
+
+{%- for name in js_vendors() %}
+  {{ next_vendors(name) }}
+{%- endfor %}
+
+{%- if theme.canvas_ribbon.enable %}
+  <script size="{{ theme.canvas_ribbon.size }}" alpha="{{ theme.canvas_ribbon.alpha }}" zIndex="{{ theme.canvas_ribbon.zIndex }}" src="{{ theme.vendors.canvas_ribbon }}"></script>
+{%- endif %}
+
+{# Customize darkmode.js - Declaration #}
+{%- if theme.darkmode_js.enable %}
+  <script src="{{ theme.vendors.darkmode_js }}"></script>
+{%- endif %}
+
+{%- for name in js_vendors() %}
+  <script src="{{ url_for(theme.vendors[name]) }}"></script>
+{%- endfor %}
+
+{# Customize darkmode.js - Invokation #}
+{%- if theme.darkmode_js.enable %}
+<script>
+var options = {
+  bottom: '64px', // default: '32px'
+  right: 'unset', // default: '32px'
+  left: '32px', // default: 'unset'
+  time: '0.5s', // default: '0.3s'
+  mixColor: '#fff', // default: '#fff'
+  backgroundColor: '#fff',  // default: '#fff'
+  buttonColorDark: '#100f2c',  // default: '#100f2c'
+  buttonColorLight: '#fff', // default: '#fff'
+  saveInCookies: true, // default: true,
+  label: '🌓', // default: ''
+  autoMatchOsTheme: true // default: true
+}
+const darkmode = new Darkmode(options);
+darkmode.showWidget();
+</script>
+{%- endif %}
+
