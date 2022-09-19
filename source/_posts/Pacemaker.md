@@ -2,7 +2,10 @@
 title: SQL Server Availability Groups On Linux with Pacemaker 
 description: SQL Server Availability Groups On Linux with Pacemaker 
 date: 2022-09-19 18:20:14
-tags: SQL Server
+tags: 
+  -	SQL Server
+  - AlwaysOn
+  -	Pacemaker
 categories: SQL Server
 ---
 
