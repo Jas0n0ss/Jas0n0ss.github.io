@@ -10,7 +10,9 @@ categories: 'SQL Server'
 ---
 
 {% youtube uxlkQ1FbKyQ %}
+
 ---
+
 - What is deadlock in SQL Server?
 - What is Blocking in SQL Server?
 - What is difference between deadlock and blocking in SQL Server?

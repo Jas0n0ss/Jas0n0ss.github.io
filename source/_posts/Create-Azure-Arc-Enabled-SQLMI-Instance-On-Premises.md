@@ -3,6 +3,7 @@ title: Create Azure Arc-enabled SQLMI Instance On-Premises
 tags: 
   - Azure Arc Data Service
   -	SQL Server
+  - SQLMI
 categories: 
   -	SQL Server
   -	Kubernets
@@ -36,7 +37,6 @@ categories:
 [create-data-controller-indirect-cli](https://docs.microsoft.com/en-us/azure/azure-arc/data/create-data-controller-indirect-cli?tabs=windows)
 
 ```bash
-
 [root@node1 arc]# kubectl get storageclasses.storage.k8s.io
 NAME            PROVISIONER                    RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
 local-storage   kubernetes.io/no-provisioner   Delete          WaitForFirstConsumer   false                  39h  
@@ -46,15 +46,12 @@ UUID=49d8fe73-dfc5-4bca-9006-7c3feebdf3fc /data xfs defaults 0 0
 /dev/sdb1                 xfs       500G  568M  500G   1% /data
 tmpfs                     tmpfs     9.8G  4.0M  9.8G   1% /var/lib/kubelet/pods/5092d08d-a693-4550-b127-35ce23c261cc/volumes/kubernetes.io~empty-dir/data
 [root@node2 ~]# ls /data/local-storage/
-vol1   vol11  vol13  vol15  vol17  vol19  vol20  vol22  vol24  vol26  vol28  vol3   vol31  vol33  vol35  vol37  vol39  vol40  vol42  vol44  vol46  vol48  vol5   vol6  vol8
-vol10  vol12  vol14  vol16  vol18  vol2   vol21  vol23  vol25  vol27  vol29  vol30  vol32  vol34  vol36  vol38  vol4   vol41  vol43  vol45  vol47  vol49  vol50  vol7  vol9
+vol1   vol11  vol13  vol15  vol17  vol19  vol20  vol22  vol24  vol26  vol28  vol3   
 [root@node1 arc]# kubectl get pv -n local-storage
 NAME                CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM                                            STORAGECLASS    REASON   AGE
 local-pv-119ebf20   499Gi      RWO            Delete           Available                                                    local-storage            23h
 local-pv-1245a771   499Gi      RWO            Delete           Available                                                    local-storage            23h
 local-pv-13a47426   499Gi      RWO            Delete           Bound       arc/logs-metricsdb-0                             local-storage            39h
-local-pv-17e97ec9   499Gi      RWO            Delete           Available                                                    local-storage            39h
-local-pv-18b04775   499Gi      RWO            Delete           Available                                                    local-storage            19h
 [root@node1 arc]# az arcdata dc create --connectivity-mode indirect --name onpremises --k8s-namespace arc --subscription xxxx-xxxxx-xxxx-xxxx --resource-group azarclab --location eastus --storage-class local-storage --profile-name azure-arc-kubeadm --infrastructure onpremises --use-k8s
 Subscription 'xxxx-xxxxx-xxxx-xxxx' not recognized.
 To not see this warning, first login to Azure.
@@ -120,7 +117,7 @@ sql1   Ready    2          10.157.21.15,32697   22m
 [root@node1 arc]# yum install mssql-tools -y
 [root@node1 arc]# /opt/mssql-tools/bin/sqlcmd -S 10.157.21.15,32697 -Uadmin -Q 'select @@version'
 Password:                                                                                                                                                                     
--------------------------------------------------------------------------
+--------------------------------------------------------
 Microsoft Azure SQL Managed Instance - Azure Arc - 16.0.312.4243 (X64)
         Jul  2 2022 13:16:53
         Copyright (C) 2022 Microsoft Corporation
@@ -133,8 +130,10 @@ Microsoft Azure SQL Managed Instance - Azure Arc - 16.0.312.4243 (X64)
 Azure Data Studio:
 https://docs.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio?view=sql-server-ver16
 
-![](images/1715511-20220909100338097-1615601437.png)
-- kibana Dashboard:
-![](images/1715511-20220909100450574-1462693194.png)
-- Grafana Dashboard
-![](images/1715511-20220909100700776-934704336.png)
+![](/images/1715511-20220909100338097-1615601437.png)
+
+kibana Dashboard:
+![](/images/1715511-20220909100450574-1462693194.png)
+
+Grafana Dashboard
+![](/images/1715511-20220909100700776-934704336.png)

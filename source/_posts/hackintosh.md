@@ -1,13 +1,13 @@
 ---
-title: hackintosh
+title: Hackintosh-in-intel-platform
 description: hackintosh
 date: 2022-09-19 21:24:46
 tags: 
-  - hackintosh
+  - Hackintosh
   - macOS
 categories: macOS 
 ---
-## hackintosh in intel platform
+## Hackintosh in intel platform
 ### hardware
 ```yaml
 Motherboard: 'ROG B365-i'
