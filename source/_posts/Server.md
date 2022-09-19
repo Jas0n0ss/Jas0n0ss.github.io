@@ -4,7 +4,7 @@ date: 2022-09-16 16:35:02
 tags: 
   - AD
   - SQL Server
-description: Linux client with AD authentication login windows SQL Server
+#description: Linux client with AD authentication login windows SQL Server
 ---
 
 > Pre-Work
