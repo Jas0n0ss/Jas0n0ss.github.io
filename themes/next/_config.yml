@@ -14,9 +14,6 @@ cache:
   enable: true
 
 # 使用CDN可选，darkmode_js: https://cdn.jsdelivr.net/npm/darkmode-js/lib/darkmode-js.min.js
-#vendors:
-#  darkmode_js:
-
 # darkmode.js
 darkmode_js: 
   enable: true
@@ -168,7 +165,7 @@ site_state: true
 # Key is the link label showing to end users.
 # Value before `||` delimiter is the target permalink, value after `||` delimiter is the name of Font Awesome icon.
 social:
-  #GitHub: https://github.com/Jas0n0ss || fab fa-github
+  GitHub: https://github.com/Jas0n0ss || fab fa-github
   E-Mail: mailto:Jas0n0ss@gmail.com || fa fa-envelope
   #Weibo: https://weibo.com/yourname || fab fa-weibo
   #Google: https://plus.google.com/yourname || fab fa-google
@@ -269,9 +266,7 @@ excerpt_description: false
 # Please use <!-- more --> in the post to control excerpt accurately.
 auto_excerpt:
   enable: true
-  excerpt_length: 200
-
-
+  excerpt_length: 150
 
 # Read more button
 # If true, the read more button will be displayed in excerpt section.
@@ -328,7 +323,7 @@ related_posts:
 # Easily browse and edit blog source code online.
 post_edit:
   enable: true
-  url: https://github.com/Jas0n0ss/Jas0n0ss.github.io/tree/main/source/_posts # Link for view source
+  url: https://github.com/Jas0n0ss/Jas0n0ss.github.io/tree/main/source/ # Link for view source
   #url: https://github.com/user-name/repo-name/edit/branch-name/subdirectory-name/ # Link for fork & edit
 
 # Show previous post and next post in post footer if exists
