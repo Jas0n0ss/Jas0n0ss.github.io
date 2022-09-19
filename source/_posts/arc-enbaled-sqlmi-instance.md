@@ -37,49 +37,45 @@ https://docs.microsoft.com/en-us/azure/azure-arc/data/create-data-controller-usi
 
 - Setup `k8s cluster` or `openshift` cluster(skipped on-premise)
 
-  - Create an Azure Red Hat OpenShift cluster with `azure-cli`
+  ##### Create an Azure Red Hat OpenShift cluster with `azure-cli`
 
-    https://docs.microsoft.com/en-us/azure/openshift/tutorial-create-cluster
+  https://docs.microsoft.com/en-us/azure/openshift/tutorial-create-cluster
 
-    when `openshift` cluster setup complete:
+  when `openshift` cluster setup complete:
 
-    - OpenShift Console 
+  ```powershell
+  # will need for authentication 
+  az ad sp create-for-rbac --name jason-azarc  --role Contributor --scopes /subscriptions/<subscription ID>/resourceGroups/<group Name>
+  {
+    "appId": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "displayName": "jason-azarc",
+    "password": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "tenant": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  }
+  # 
+  # note down the appID and password
+  ```
+  
+  ##### Connect to an Azure Red Hat OpenShift cluster
+  
+  https://docs.microsoft.com/en-us/azure/openshift/tutorial-connect-cluster
 
-    - API server URL
-
-    ```bash
-    # will need for authentication 
-    az ad sp create-for-rbac --name jason-azarc  --role Contributor --scopes /subscriptions/<subscription ID>/resourceGroups/<group Name>
-    {
-      "appId": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-      "displayName": "jason-azarc",
-      "password": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-      "tenant": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-    }
-    # 
-    # note down the appID and password
-    ```
-
-  - Connect to an Azure Red Hat OpenShift cluster
-
-    https://docs.microsoft.com/en-us/azure/openshift/tutorial-connect-cluster
-
-    ```bash
-    # list console login info
-    az aro list-credentials --name ocluster --resource-group az-arc
-    # list azure openshift cluster info
-    PS C:\Users\hubo> az aro list -o table
-    Name      ResourceGroup    Location    ProvisioningState    WorkerCount    URL
-    --------  ---------------  ----------  -------------------  -------------  -----------------------------------------------------------
-    ocluster  az-arc           eastus      Succeeded            4              https://console-openshift-console.xxxxxxx.io/
-    # login in openshift
-    [root@azk8s-oc ~]# oc login <API URL> -u kubeadmin -p <password>
-    Login successful.
-    You have access to 68 projects, the list has been suppressed. You can list all projects with 'oc projects'
-    
-    Using project "default".
-    Welcome! See 'oc help' to get started.
-    ```
+  ```powershell
+  # list console login info
+  az aro list-credentials --name ocluster --resource-group az-arc
+  # list azure openshift cluster info
+  PS C:\Users\hubo> az aro list -o table
+  Name      ResourceGroup    Location    ProvisioningState    WorkerCount    URL
+  --------  ---------------  ----------  -------------------  -------------  -----------------------------------------------------------
+  ocluster  az-arc           eastus      Succeeded            4              https://console-openshift-console.xxxxxxx.io/
+  # login in openshift
+  [root@azk8s-oc ~]# oc login <API URL> -u kubeadmin -p <password>
+  Login successful.
+  You have access to 68 projects, the list has been suppressed. You can list all projects with 'oc projects'
+  
+  Using project "default".
+  Welcome! See 'oc help' to get started
+  ```
 
 #### Create a namespace in which the data controller will be created
 

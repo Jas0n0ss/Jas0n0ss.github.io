@@ -9,7 +9,7 @@ categories: [Linux,OSS,MSSQL]
 
 ### Prerequisites & environments
 
-| HostName | CPU & MEM  |    Role    |    OS     |
+| Servers  | CPU & MEM  |    Role    |    OS     |
 | :------: | :--------: | :--------: | :-------: |
 | node1.io | 4Core 16GB | k8s master | centos7.8 |
 | node2.io | 4Core 20GB | k8s worker | centos7.8 |
@@ -83,8 +83,8 @@ metricsdb-0                    2/2     Running     2          14h
 metricsdc-2lr8t                2/2     Running     0          14h
 metricsdc-79h4t                2/2     Running     2          14h
 metricsui-zjwnr                2/2     Running     0          14h
-``` 
-       
+```
+
 ### Create SQLMI instance
 [create-sql-managed-instance-with-azure-cli](https://docs.microsoft.com/en-us/azure/azure-arc/data/create-sql-managed-instance?tabs=indirectly)
 

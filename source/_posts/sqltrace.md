@@ -1,5 +1,5 @@
 ---
-title: sqltrace
+title: sys.fn_trace_gettable
 date: 2022-09-16 17:31:32
 tags: 'SQL Server'
 ---
@@ -10,13 +10,12 @@ https://docs.microsoft.com/en-us/sql/relational-databases/system-functions/sys-f
 
 > `sys.fn_trace_gettable`
 
-```SQL
+```sql
 USE AdventureWorks;
 GO
 SELECT * INTO temp_trc
 FROM fn_trace_gettable('c:\temp\mytrace.trc', default);
 GO
-
 --- check data from table
 SELECT * FROM temp_trc
 ```
