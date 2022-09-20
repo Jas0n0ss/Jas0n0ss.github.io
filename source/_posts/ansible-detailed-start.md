@@ -15,9 +15,9 @@ categories: Linux
 (4)、借助于插件完成记录日志邮件等功能；
 (5)、playbook：剧本执行多个任务时，非必需可以让节点一次性运行多个任务。
  
-github地址：https://github.com/ansible/ansible/
-官网地址：https://docs.ansible.com
-在线playbook分享平台：https://galaxy.ansible.com
+    github地址：https://github.com/ansible/ansible/
+    官网地址：https://docs.ansible.com
+    在线playbook分享平台：https://galaxy.ansible.com
  
 2. 特性
 (1)、no agents：不需要在被管控主机上安装任何客户端；
@@ -34,4 +34,4 @@ github地址：https://github.com/ansible/ansible/
 (4)、支持sudo。
 
 参考链接：
-https://www.cnblogs.com/chenxianpao/p/7360349.html
+  https://www.cnblogs.com/chenxianpao/p/7360349.html
