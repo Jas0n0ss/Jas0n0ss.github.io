@@ -259,3 +259,5 @@ ansible all -m setup -a "filter=ansible_hostname"
 ```
 
   https://www.cnblogs.com/keerya/p/7987886.html
+
+  https://www.cnblogs.com/keerya/p/8004566.html

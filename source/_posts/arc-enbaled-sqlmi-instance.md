@@ -1,7 +1,9 @@
 ---
 title: Create Azure Arc-enabled sqlmi instance using OpenShift tool
 tags: [Azure,SQL Server]
-categories: [Linux,OSS,MSSQL]
+categories: 
+  -	SQL Server
+  - Openshift
 #description: 'Create Azure Arc-enabled sqlmi instance using OpenShift tool'
 ---
 
