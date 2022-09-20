@@ -57,7 +57,7 @@ Valid starting       Expires              Service principal
 ```bash
 [sqlroot@sqlrepro.edu@linux ~]$ sqlcmd -S primarydc -E -Q 'select system_user'
                                                                                                                    
---------------------------------------------------------------------------------------------------------------------------------
+----------------------------
 SQLREPRO\sqlroot                                                                                                   
 
 (1 rows affected)

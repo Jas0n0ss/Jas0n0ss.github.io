@@ -185,52 +185,29 @@ metricsui-c4bxg      2/2     Running   0               3h20m
 
 https://docs.microsoft.com/en-us/azure/azure-arc/data/create-sql-managed-instance-using-kubernetes-native-tools
 
+Template :
+
+https://raw.githubusercontent.com/microsoft/azure_arc/main/arc_data_services/deploy/yaml/sqlmi.yaml
+
+https://www.cnblogs.com/aboa/p/sqlmi.html
+
 ```yaml
 [root@azk8s-oc mnt]# wget https://raw.githubusercontent.com/microsoft/azure_arc/main/arc_data_services/deploy/yaml/sqlmi.yaml
-# edit it base on your own env
 [root@azk8s-oc mnt]# vim sqlmi.yaml
 apiVersion: v1
 data:
   password: <your base64 encoded password>
-  username: <your base64 encoded username>
-kind: Secret
-metadata:
-  name: sql1-login-secret
-type: Opaque
----
-apiVersion: sql.arcdata.microsoft.com/v5
-kind: SqlManagedInstance
-metadata:
-  name: sql1
-  annotations:
-    exampleannotation1: exampleannotationvalue1
-    exampleannotation2: exampleannotationvalue2
-  labels:
-    examplelabel1: examplelabelvalue1
-    examplelabel2: examplelabelvalue2
+  username: <your base64 encoded username> 
+	...
 spec:
   dev: true #options: [true, false]
   licenseType: LicenseIncluded #options: [LicenseIncluded, BasePrice].  BasePrice is used for Azure Hybrid Benefits.
   tier: GeneralPurpose #options: [GeneralPurpose, BusinessCritical]
-  security:
-    adminLoginSecret: sql1-login-secret
-  scheduling:
-    default:
-      resources:
-        limits:
-          cpu: "2"
-          memory: 4Gi
-        requests:
-          cpu: "1"
-          memory: 2Gi
+  ...
   services:
     primary:
       type: LoadBalancer # base on your env
   storage:
-    #backups:
-    #  volumes:
-    #  - className: azurefile # Backup volumes require a ReadWriteMany (RWX) capable storage class
-    #    size: 5Gi
     data:
       volumes:
       - className: default #  use oc get storageclasses

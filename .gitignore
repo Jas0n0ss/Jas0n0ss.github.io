@@ -1,4 +1,6 @@
 .DS_Store
+action
+action.pub
 Thumbs.db
 db.json
 *.log
