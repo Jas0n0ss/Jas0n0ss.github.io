@@ -2,8 +2,7 @@
 title: VMware-Workstation-Pro-16-license-keys
 description: VMware-Workstation-Pro-16-license-keys
 date: 2022-09-20 01:46:31
-tags: 
-  -	VMware
+tags: VMware
 categories:
 ---
 
