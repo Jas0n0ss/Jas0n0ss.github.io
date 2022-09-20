@@ -9,14 +9,10 @@ tags:
 categories: DevOps
 ---
 
----
 Nodes:  
   - master: ocmaster.eastasia.cloudapp.azure.com
   - compute:  occompute.eastasia.cloudapp.azure.com
   - infra:  ocinfra.eastasia.cloudapp.azure.com
-----------------------------------------------------------------------------------------------------
-
-
 
 ```bash
 # Nodes all:

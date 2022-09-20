@@ -2,7 +2,7 @@
 title: ansible-manage-windows-server
 description: ansible-manage-windows-server
 date: 2022-09-20 16:43:47
-tags:
+tags: Ansible
 categories:
 ---
 

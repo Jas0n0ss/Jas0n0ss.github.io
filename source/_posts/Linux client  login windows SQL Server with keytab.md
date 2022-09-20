@@ -21,7 +21,7 @@ MSSQLSvc/primarydc.SQLREPRO.EDU:1433@SQLREPRO.EDU: kvno = 2
 [root@linux ~]# sqlcmd -S primarydc -Usa -Q ' SELECT name  FROM sys.server_principals WHERE name like "%sqlroot%"'
 Password:
 name
---------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------
 SQLREPRO\sqlroot
 
 (1 rows affected)
