@@ -1,12 +1,10 @@
 ---
-title: linux-pxe
-description: linux-pxe
+title: Pxe-install-or-rescure.md
+description: Pxe-install-or-rescure.md
 date: 2022-09-19 19:11:18
 tags: pxe
 
 ---
-
-#### 环境Redhat7.3
 
 ```bash
 [root@localhost ~]# yum install httpd tftp-server dhcpd syslinux system-config-kickstart -y 
@@ -25,7 +23,7 @@ tags: pxe
 ***
 - system-config-kickstart:
 
-在shell中直接运行软将名字，按照一步步的配置即可，最后把ks.cfg文件保存到httpd共享的不同目录下，可以用ksvalidator命令检查语法错误，中共配合三个ks文件分别保存在/var/www/html/ks7,ks72,ks68目录下
+> 运行system-config-kickstart，最后把ks.cfg文件保存到httpd共享的不同目录下，可以用ksvalidator命令检查语法错误，中共配合三个ks文件分别保存在/var/www/html/ks7,ks72,ks68目录下
 
 ```bash
 [root@localhost ~] system-config-kickstart
