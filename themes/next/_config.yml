@@ -48,7 +48,7 @@ scheme: Muse
 #scheme: Gemini
 
 # Dark Mode
-darkmode: true
+darkmode: false
 
 # Code Highlight theme
 # Available value: normal | night | night eighties | night blue | night bright
