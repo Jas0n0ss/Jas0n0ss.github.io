@@ -6,16 +6,11 @@ tags: pxe
 
 ---
 
-### 环境Redhat7.3
+#### 环境Redhat7.3
 
-***
-软件准本工作：
-```
+```bash
 [root@localhost ~]# yum install httpd tftp-server dhcpd syslinux system-config-kickstart -y 
 ```
-***
-软件环境的逐个配置：
-
 - 配置HTTP共享
 
 ***
@@ -178,6 +173,6 @@ public (active)
   rich rules: 
   rule family="ipv4" source address="192.168.0.10" masquerade
 ```
-![这里写图片描述](C:/Users/hubo/Jas0n0ss.github.io/source/images/pxe1.png)
-![这里写图片描述](C:/Users/hubo/Jas0n0ss.github.io/source/images/pxe2.png)
-![这里写图片描述](C:/Users/hubo/Jas0n0ss.github.io/source/images/pxe3.png)
+![这里写图片描述](/images/pxe1.png)
+![这里写图片描述](/images/pxe2.png)
+![这里写图片描述](/images/pxe3.png)
