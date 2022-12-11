@@ -1,5 +1,15 @@
+---
+title: terraform-to-create-Azure-linux-Virtual-Machine
+description: terraform-to-create-Azure-linux-Virtual-Machine
+date: 2022-12-11 22:33:16
+tags: 
+  - Terryform
+  - Azure VM
+categories:
+  - Devops
+---
 
-## Examples for the Virtual Machine resources
+## terraform-to-create-Azure-linux-Virtual-Machine
 
 >  Reference
 
