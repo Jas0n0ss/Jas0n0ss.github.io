@@ -46,7 +46,190 @@ output "public_ip_address" {
   value = azurerm_linux_virtual_machine.main.public_ip_address
 }
 ```
+```hcl
+[root@srv1 ~]# cat main.tf
+provider "azurerm" {
+  features {
+    resource_group {
+      prevent_deletion_if_contains_resources = false
+    }
+    /* environment     = "public"
+  subscription_id = var.azure-subscription-id
+  client_id       = var.azure-client-id
+  client_secret   = var.azure-client-secret
+  tenant_id       = var.azure-tenant-id */
+  }
+}
 
+resource "azurerm_resource_group" "main" {
+  name     = "${var.prefix}-resources"
+  location = var.location
+}
+
+resource "azurerm_virtual_network" "main" {
+  name                = "${var.prefix}-network"
+  address_space       = ["10.0.0.0/16"]
+  location            = azurerm_resource_group.main.location
+  resource_group_name = azurerm_resource_group.main.name
+}
+
+resource "azurerm_subnet" "internal" {
+  name                 = "internal"
+  resource_group_name  = azurerm_resource_group.main.name
+  virtual_network_name = azurerm_virtual_network.main.name
+  address_prefixes     = ["10.0.2.0/24"]
+}
+
+resource "azurerm_public_ip" "main" {
+  name                = "${var.prefix}-pip"
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
+  allocation_method   = "Dynamic"
+}
+
+resource "azurerm_network_interface" "main" {
+  name                = "${var.prefix}-nic"
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
+
+  ip_configuration {
+    name                          = "internal"
+    subnet_id                     = azurerm_subnet.internal.id
+    private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = azurerm_public_ip.main.id
+  }
+}
+
+# Create Network Security Group and rule
+resource "azurerm_network_security_group" "nsg" {
+  name                = "myNetworkSecurityGroup"
+  location            = azurerm_resource_group.main.location
+  resource_group_name = azurerm_resource_group.main.name
+
+  security_rule {
+    name                       = "SSH"
+    priority                   = 1001
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "22"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+}
+
+# Connect the security group to the network interface
+resource "azurerm_network_interface_security_group_association" "main" {
+  network_interface_id      = azurerm_network_interface.main.id
+  network_security_group_id = azurerm_network_security_group.nsg.id
+}
+
+resource "azurerm_linux_virtual_machine" "main" {
+  name                = "${var.prefix}-vm"
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
+  size                = "Standard_B2s"
+  admin_username      = "adminuser"
+  network_interface_ids = [
+    azurerm_network_interface.main.id,
+  ]
+
+  source_image_reference {
+    publisher = var.linux_vm_image_publisher
+    offer     = var.linux_vm_image_offer
+    sku       = var.centos_7_gen2_sku
+    version   = "latest"
+  }
+
+  admin_ssh_key {
+    username   = "adminuser"
+    public_key = file("~/.ssh/id_rsa.pub")
+  }
+
+  os_disk {
+    storage_account_type = "Standard_LRS"
+    caching              = "ReadWrite"
+  }
+}
+```
+```hcl
+[root@srv1 ~]# cat variables.tf
+variable "prefix" {
+  default     = "azvmlab"
+  description = "The prefix which should be used for all resources in this example"
+}
+
+variable "location" {
+  default     = "eastasia"
+  description = "The Azure Region in which all resources in this example should be created."
+}
+
+# centos image
+
+variable "linux_vm_image_publisher" {
+  type        = string
+  description = "Virtual machine source image publisher"
+  default     = "OpenLogic"
+}
+variable "linux_vm_image_offer" {
+  type        = string
+  description = "Virtual machine source image offer"
+  default     = "CentOS"
+}
+variable "centos_7_sku" {
+  type        = string
+  description = "SKU for latest CentOS 8 "
+  default     = "7_9"
+}
+variable "centos_7_gen2_sku" {
+  type        = string
+  description = "SKU for latest CentOS 8 Gen2"
+  default     = "7_9-gen2"
+}
+variable "centos_8_sku" {
+  type        = string
+  description = "SKU for latest CentOS 8 "
+  default     = "8_5"
+}
+variable "centos_8_gen2_sku" {
+  type        = string
+  description = "SKU for latest CentOS 8 Gen2"
+  default     = "8_5-gen2"
+}
+
+# Azure auth
+
+/* variable "azure_subscription_id" {
+  type = string
+  description = "Azure Subscription ID"
+}
+variable "azure_client_id" {
+  type = string
+  defalut     ="<azure_client_id>"
+  description = "Azure Client ID"
+}
+variable "azure_client_secret" {
+  type = string
+  description = "Azure Client Secret"
+}
+variable "azure_tenant_id" {
+  type = string
+  description = "Azure Tenant ID"
+} */
+```
+```hcl
+[root@srv1 ~]# cat output.tf
+output "computer_name" {
+  value = azurerm_linux_virtual_machine.main.computer_name
+}
+output "admin_username" {
+  value = azurerm_linux_virtual_machine.main.admin_username
+}
+output "public_ip_address" {
+  value = azurerm_linux_virtual_machine.main.public_ip_address
+}
+```
 > Need to Know
 
 ### make sure you have ssh key created on local machine
@@ -84,6 +267,10 @@ Apply complete! Resources: 8 added, 0 changed, 0 destroyed.
 
 Outputs:
 
+admin_username = "adminuser"
+computer_name = "azvmlab-vm"
+public_ip_address = "20.205.35.219"
+[root@srv1 azure-vm]# terraform output
 admin_username = "adminuser"
 computer_name = "azvmlab-vm"
 public_ip_address = "20.205.35.219"
