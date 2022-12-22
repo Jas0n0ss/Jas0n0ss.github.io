@@ -20,7 +20,9 @@ https://cloud.google.com/sdk/docs/install
 # gcloud completion
 ⚡ source ./google-cloud-sdk/*.inc 
 # 
-⚡ gcloud compute instances list                                                                                                                                 jason@JasondeMBP
+⚡ gcloud auth login
+gcloud config set project <PROJECT_ID>
+⚡ gcloud compute instances list                                                                                                                           jason@JasondeMBP
 NAME        ZONE               MACHINE_TYPE  PREEMPTIBLE  INTERNAL_IP  EXTERNAL_IP     STATUS
 tw          asia-east1-a       e2-micro                   10.140.0.10  xxxx           RUNNING
 xray-ipsec  asia-east1-b       e2-micro                   10.140.0.3   xxxx           RUNNING
