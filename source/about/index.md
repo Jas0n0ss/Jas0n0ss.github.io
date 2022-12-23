@@ -3,9 +3,17 @@ title: 关于
 type:  about
 comments: false
 date: 2022-09-16 10:00:54
+
 ---
 
-This is Jason and an Microsoft Engineer, interested in OSS.
+> 2017年西安邮电大学本科毕业，简单工作经历如下：
+
+|      时间      | 工作单位                               |
+| :------------: | -------------------------------------- |
+|  2021.10-现在  | 微软，技术支持工程师（sql server）     |
+| 2019.7-2021.10 | IBM, SRE                               |
+| 2018.8-2019.6  | 北京长亭，高级技术支持工程师(安全产品) |
+| 2017.7-2018.8  | 华为，技术支持工程师（服务器)          |
 
 
 ```yaml
@@ -21,4 +29,5 @@ This is Jason and an Microsoft Engineer, interested in OSS.
     - Code: Python,Shell,SQL
     - Cloud: Azure,AWS,Aliyun,Tecent Cloud...
     - Hobby: Hackintosh,raspberry,OpenWrt...
-```    
+```
+
