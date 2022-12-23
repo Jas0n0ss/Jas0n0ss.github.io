@@ -72,5 +72,7 @@ jobs:
 ```
 
 ```bash
+git add . && git commit -m 'new post' && git push
 ```
 
+![image-20221223140859290](../images/image-20221223140859290.png)
