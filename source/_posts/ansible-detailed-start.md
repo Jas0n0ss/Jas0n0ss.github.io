@@ -34,6 +34,5 @@ categories: Linux
 - (4)、支持sudo。
 
 参考链接：
-  https://www.cnblogs.com/chenxianpao/p/7360349.html
-
-  https://www.cnblogs.com/keerya/p/7987886.html
+  - https://www.cnblogs.com/chenxianpao/p/7360349.html
+  - https://www.cnblogs.com/keerya/p/7987886.html
