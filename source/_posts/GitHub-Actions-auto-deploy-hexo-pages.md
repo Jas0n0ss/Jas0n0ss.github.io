@@ -21,7 +21,7 @@ Navigate to `Settings` -> `Secrets` -> `Actions` add SSH Private key and name it
 
 ![image-20221223134753592](../images/image-20221223134753592.png)
 
-Navigate to ``Settings` -> `Deploy keys` add SSH public key and mark `Allow write access`
+Navigate to `Settings` -> `Deploy keys` add SSH public key and mark `Allow write access`
 
 ![image-20221223135123108](../images/image-20221223135123108.png)
 
