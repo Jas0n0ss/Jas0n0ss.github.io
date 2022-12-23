@@ -13,7 +13,7 @@ jobs:
       - name: Clone Repo
         uses: actions/checkout@v3
         with:
-          repository: https://github.com/Jas0n0ss/Jas0n0ss.github.io.git
+          repository: Jas0n0ss/Jas0n0ss.github.io
           path: .deploy_git
 
       - name: Setup Node
