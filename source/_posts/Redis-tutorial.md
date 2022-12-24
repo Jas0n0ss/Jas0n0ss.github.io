@@ -3,7 +3,7 @@ title: Redis tutorial
 description: Redis tutorial
 date: 2022-12-23 18:03:52
 tags: redis
-categories: Database
+categories: DB
 ---
 
 Redis 是高性能 NoSQL 内存 key-value 数据库，支持数据的持久化、备份、事物、发布/订阅、通知、key 过期等特性。
