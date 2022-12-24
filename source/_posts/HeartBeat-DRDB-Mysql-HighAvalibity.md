@@ -6,7 +6,7 @@ tags:
   - Mysql
   - DRDB
   - high Availability
-categories: DataBase
+categories: DB
 ---
 **1.方案简介**
 
