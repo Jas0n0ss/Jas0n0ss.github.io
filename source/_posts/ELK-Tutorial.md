@@ -190,3 +190,7 @@ Logstash事件处理有三个阶段：`inputs` → `filters` → `outputs`。是
 
 - json：使用json格式对数据进行编码/解码。
 - multiline：将汇多个事件中数据汇总为一个单一的行。比如：java异常信息和堆栈信息。
+
+> 推荐文档
+
+https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-elastic-stack-on-ubuntu-16-04
