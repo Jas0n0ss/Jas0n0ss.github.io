@@ -6,7 +6,7 @@ tags:
   - Terryform
   - Azure VM
 categories:
-  - Devops
+  - devops
 ---
 
 ## terraform-to-create-Azure-linux-Virtual-Machine
