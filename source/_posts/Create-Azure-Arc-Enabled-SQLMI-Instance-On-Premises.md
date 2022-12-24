@@ -3,10 +3,9 @@ title: Create Azure Arc-enabled SQLMI Instance On-Premises
 tags: 
   - Azure Arc Data Service
   -	SQL Server
-  - SQLMI
 categories: 
-  -	SQL Server
-  -	Kubernets
+  -	Azure
+  -	sqlmi
 #description: 'Create Azure Arc-enabled SQLMI Instance On-Premises'
 ---
 
