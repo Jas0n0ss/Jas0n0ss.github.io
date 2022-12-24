@@ -2,8 +2,8 @@
 title: nginx-dav+aliyundrive-fuse
 description: nginx-dav+aliyundrive-fuse
 date: 2022-09-19 11:01:01
-tags: [webdav,Nginx]
-categories: Nginx
+tags: [webdav,nginx]
+categories: [web,nginx,webdav]
 ---
 
 ##### 源码编译Nginx Dav模块
