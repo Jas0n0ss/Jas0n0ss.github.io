@@ -2,11 +2,8 @@
 title: openshift-setup-with-ansible-playbook
 description: openshift-setup-with-ansible-playbook
 date: 2022-09-20 17:02:06
-tags: 
-  -	Ansible
-  - Openshift
-  -	Playbook
-categories: DevOps
+tags: ansible
+categories: devops
 ---
 
 Nodes:  
