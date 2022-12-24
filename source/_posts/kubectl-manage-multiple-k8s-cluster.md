@@ -4,7 +4,7 @@ date: 2022-09-16 16:29:09
 tags: 
   - kubernets
   - kubecm 
-categories: kubernets
+categories: k8s
 #description: 'kubectl-manage-multiple-k8s-cluster'
 ---
 
