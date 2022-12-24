@@ -3,7 +3,7 @@ title: Nginx Tutorial
 description: Nginx Tutorial
 date: 2022-12-23 17:10:09
 Tags: nginx
-categories: nginx
+categories: [web,nginx]
 ---
 
 ##  nginx architecture
