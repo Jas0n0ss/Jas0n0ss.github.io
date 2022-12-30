@@ -11,10 +11,10 @@ categories: devops
 |      Docker网络模式      |           配置            |                             说明                             |
 | :----------------------: | :-----------------------: | :----------------------------------------------------------: |
 |         host模式         |         –net=host         | 容器和宿主机共享Network namespace。<br/>容器将不会虚拟出自己的网卡，配置自己的IP 等，而是使用宿主机的IP和端口。 |
-|      container模式       | –net=container:NAME_or_ID | 容器和另外一个容器共享Network namespace。<br/><br/>kubernetes中的pod就是多个容器共享一个Network namespace。<br/><br/>创建的容器不会创建自己的网卡，配置自己的 IP， 而是和一个指定的容器共享IP、端口范围。 |
-|         none模式         |         –net=none         | 容器有独立的Network namespace，并没有对其进行任何网络设置，如分配veth pair和网桥连接，配置IP等。<br/><br/>该模式关闭了容器的网络功能。 |
+|      container模式       | –net=container:NAME_or_ID | 容器和另外一个容器共享Network namespace.kubernetes中的pod就是多个容器共享一个Network namespace。创建的容器不会创建自己的网卡，配置自己的 IP， 而是和一个指定的容器共享IP、端口范围。 |
+|         none模式         |         –net=none         | 容器有独立的Network namespace，并没有对其进行任何网络设置，如分配veth pair和网桥连接，配置IP等。该模式关闭了容器的网络功能。 |
 |        bridge模式        |        –net=bridge        | (默认模式)。此模式会为每一个容器分配、设置IP等，并将容器连接到一个docker0虚拟网桥，通过docker0网桥以及Iptable nat表配置与宿主机通信 |
-| Macvlan<br/><br/>network |            无             |         容器具备Mac地址，使其显示为网络上的物理 设备         |
+| Macvlan  |            无             |         容器具备Mac地址，使其显示为网络上的物理 设备         |
 |         Overlay          |            无             |            (覆盖网络): 利用VXLAN实现的bridge模式             |
 
 ### Bridge模式(`连接到Docker0网桥，Docker0再和宿主及通信，Docker0作为容器 网络的网关`)
