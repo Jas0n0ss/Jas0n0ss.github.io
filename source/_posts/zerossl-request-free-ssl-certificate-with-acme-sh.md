@@ -61,6 +61,6 @@ server {
 ```
 
 ```bash
-nginx -s reload && 
+nginx -s reload 
 ```
 
