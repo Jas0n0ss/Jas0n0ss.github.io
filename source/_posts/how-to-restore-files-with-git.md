@@ -1,6 +1,6 @@
 ---
-title: how to recovery files with git
-description: how to recovery files with git
+title: how to restore files with git
+description: how to restore files with git
 date: 2023-01-04 17:21:32
 tags: git
 categories: devops
