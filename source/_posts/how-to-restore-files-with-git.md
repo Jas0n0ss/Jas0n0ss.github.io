@@ -6,7 +6,7 @@ tags: git
 categories: devops
 ---
 
-> sometimes we may git delete some files by mistake, well. Don't panic, there is way to restore deleted files:
+> sometimes we may delete some files by mistake, well. Don't panic, there is a way to restore deleted files:
 
 Here's example of simulating remove file:
 
