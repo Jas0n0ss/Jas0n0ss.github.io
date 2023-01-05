@@ -8,6 +8,8 @@ categories: devops
 
 > sometimes we may delete some files by mistake, well. Don't panic, there is a way to restore deleted files:
 
+<iframe allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" frameborder="0" height="175" style="width:100%;max-width:660px;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/cn/album/snow-waltz/1639935555?i=1639936485"></iframe>
+
 Here's example of simulating remove file:
 
 ```bash
