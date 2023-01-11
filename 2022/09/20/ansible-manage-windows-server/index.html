@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/manifest.json">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.loli.net/css?family=Ubuntu:300,300italic,400,400italic,700,700italic%7CPT+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.13.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="ansible-manage-windows-server">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ansible-manage-windows-server">
+<meta property="og:url" content="http://example.com/2022/09/20/ansible-manage-windows-server/index.html">
+<meta property="og:site_name" content="OSS.MSFT.VIP">
+<meta property="og:description" content="ansible-manage-windows-server">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-09-20T16:43:47.000Z">
+<meta property="article:modified_time" content="2023-01-11T13:15:07.041Z">
+<meta property="article:author" content="Jason Hu">
+<meta property="article:tag" content="Ansible">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/09/20/ansible-manage-windows-server/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/09/20/ansible-manage-windows-server/","path":"2022/09/20/ansible-manage-windows-server/","title":"ansible-manage-windows-server"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>ansible-manage-windows-server | OSS.MSFT.VIP</title>
+  
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+  <script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">OSS.MSFT.VIP</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">爱国，求是，奋进！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Windows-Server-Ansible-Setup"><span class="nav-number">1.</span> <span class="nav-text">Windows Server Ansible Setup</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-Upgrade-Powershell-to-V4-0-above"><span class="nav-number">1.1.</span> <span class="nav-text">1.Upgrade Powershell to V4.0 above</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-Enable-Winrm-and-Enable-Powershell-Remote-Management"><span class="nav-number">1.2.</span> <span class="nav-text">2. Enable Winrm and Enable Powershell Remote Management</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-Windows-firewall-open-for-Winrm"><span class="nav-number">1.3.</span> <span class="nav-text">3. Windows firewall open for Winrm</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-Ansible-master"><span class="nav-number">1.4.</span> <span class="nav-text">4.  Ansible master</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-Ansible-master-configure"><span class="nav-number">1.4.1.</span> <span class="nav-text">1. Ansible master configure</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-%E6%B5%8B%E8%AF%95ping%E6%8E%A2%E6%B5%8Bwindows%E5%AE%A2%E6%88%B7%E4%B8%BB%E6%9C%BA%E6%98%AF%E5%90%A6%E5%AD%98%E6%B4%BB"><span class="nav-number">1.4.2.</span> <span class="nav-text">2. 测试ping探测windows客户主机是否存活</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-%E6%B5%8B%E8%AF%95%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86"><span class="nav-number">1.4.3.</span> <span class="nav-text">3. 测试文件管理</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-%E6%B5%8B%E8%AF%95%E8%BF%9C%E7%A8%8B%E6%89%A7%E8%A1%8Ccmd%E5%91%BD%E4%BB%A4"><span class="nav-number">1.4.4.</span> <span class="nav-text">4. 测试远程执行cmd命令</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#5-%E8%BF%9C%E7%A8%8B%E9%87%8D%E5%90%AFwindows%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">1.4.5.</span> <span class="nav-text">5. 远程重启windows服务器</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#6-Windows%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86"><span class="nav-number">1.4.6.</span> <span class="nav-text">6. Windows服务管理</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#7-%E6%B5%8B%E8%AF%95%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7-%E8%BF%9C%E7%A8%8B%E5%9C%A8windows%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8A%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7"><span class="nav-number">1.4.7.</span> <span class="nav-text">7. 测试创建用户(远程在windows客户端上创建用户)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#8-%E4%BD%BF%E7%94%A8%E4%B8%BE%E4%BE%8B"><span class="nav-number">1.4.8.</span> <span class="nav-text">8. 使用举例</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E7%9A%84ansible-%E6%A8%A1%E5%9D%97"><span class="nav-number">2.</span> <span class="nav-text">常用的ansible 模块</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason Hu"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Jason Hu</p>
+  <div class="site-description" itemprop="description">OSS.MSFT.VIP</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Jas0n0ss" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Jas0n0ss" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:Jas0n0ss@gmail.com" title="E-Mail → mailto:Jas0n0ss@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/Jas0n0ss" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/20/ansible-manage-windows-server/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Jason Hu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OSS.MSFT.VIP">
+      <meta itemprop="description" content="OSS.MSFT.VIP">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="ansible-manage-windows-server | OSS.MSFT.VIP">
+      <meta itemprop="description" content="ansible-manage-windows-server">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ansible-manage-windows-server<a href="https://github.com/Jas0n0ss/Jas0n0ss.github.io/tree/main/source/_posts/ansible-manage-windows-server.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-09-20 16:43:47" itemprop="dateCreated datePublished" datetime="2022-09-20T16:43:47+00:00">2022-09-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-01-11 13:15:07" itemprop="dateModified" datetime="2023-01-11T13:15:07+00:00">2023-01-11</time>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">ansible-manage-windows-server</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h4 id="Windows-Server-Ansible-Setup"><a href="#Windows-Server-Ansible-Setup" class="headerlink" title="Windows Server Ansible Setup"></a>Windows Server Ansible Setup</h4><h5 id="1-Upgrade-Powershell-to-V4-0-above"><a href="#1-Upgrade-Powershell-to-V4-0-above" class="headerlink" title="1.Upgrade Powershell to V4.0 above"></a>1.Upgrade Powershell to V4.0 above</h5><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>. 检查powershell版本</span><br><span class="line"><span class="built_in">get-host</span></span><br><span class="line"></span><br><span class="line"><span class="number">2</span>. 下载并安装Microsoft .NET Framework <span class="number">4.5</span></span><br><span class="line">下载地址：</span><br><span class="line">https://download.microsoft.com/download/B/A/<span class="number">4</span>/BA4A7E71<span class="literal">-2906-4B2D-A0E1-80CF16844F5F</span>/dotNetFx45_Full_setup.exe</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>. 下载并安装powershell4.<span class="number">0</span>(Windows Management Framework <span class="number">4.0</span> )</span><br><span class="line">下载地址：</span><br><span class="line">https://download.microsoft.com/download/<span class="number">3</span>/D/<span class="number">6</span>/<span class="number">3</span>D61D262<span class="literal">-8549-4769-A660-230B67E15B25</span>/Windows6.<span class="number">1</span><span class="literal">-KB2819745-x64-MultiPkg</span>.msu</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意： 先安装.NET Framework 4.5 ，然后安装powershell4.0，安装完成之后重启windows服务器</p>
+</blockquote>
+<h5 id="2-Enable-Winrm-and-Enable-Powershell-Remote-Management"><a href="#2-Enable-Winrm-and-Enable-Powershell-Remote-Management" class="headerlink" title="2. Enable Winrm and Enable Powershell Remote Management"></a>2. Enable Winrm and Enable Powershell Remote Management</h5><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>. 查看powershell执行策略</span><br><span class="line"><span class="built_in">get-executionpolicy</span></span><br><span class="line"></span><br><span class="line"><span class="number">2</span>. 更改powershell执行策略为remotesigned</span><br><span class="line"><span class="built_in">set-executionpolicy</span> remotesigned</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>. 配置winrm service并启动服务</span><br><span class="line">winrm quickconfig</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>. 查看winrm service启动监听状态</span><br><span class="line">winrm enumerate winrm/config/listener</span><br><span class="line"></span><br><span class="line"><span class="number">5</span>. 修改winrm配置，启用远程连接认证</span><br><span class="line">winrm <span class="built_in">set</span> winrm/config/service/auth <span class="string">&#x27;@&#123;Basic=&quot;true&quot;&#125;&#x27;</span></span><br><span class="line">winrm <span class="built_in">set</span> winrm/config/service <span class="string">&#x27;@&#123;AllowUnencrypted=&quot;true&quot;&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="3-Windows-firewall-open-for-Winrm"><a href="#3-Windows-firewall-open-for-Winrm" class="headerlink" title="3. Windows firewall open for Winrm"></a>3. Windows firewall open for Winrm</h5><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">查看winrm service启动监听状态</span><br><span class="line">winrm enumerate winrm/config/listener</span><br><span class="line">添加防火墙信任规则，允许<span class="number">5985</span>端口通过</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-Ansible-master"><a href="#4-Ansible-master" class="headerlink" title="4.  Ansible master"></a>4.  Ansible master</h5><h6 id="1-Ansible-master-configure"><a href="#1-Ansible-master-configure" class="headerlink" title="1. Ansible master configure"></a>1. Ansible master configure</h6><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 添加windows客户端连接信息</span></span><br><span class="line">vim /etc/ansible/hosts</span><br><span class="line">[win]</span><br><span class="line">172.16.37.3 ansible_ssh_user=<span class="string">&quot;Administrator&quot;</span> ansible_ssh_pass=<span class="string">&quot;Westlife@#ibm&quot;</span> ansible_ssh_port=5985 ansible_connection=<span class="string">&quot;winrm&quot;</span> ansible_winrm_server_cert_validation=ignore</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装winrm 模块</span></span><br><span class="line">pip search pywinrm <span class="comment"># pip search 没办法用了</span></span><br><span class="line">pi p install pywinrm <span class="comment"># 无法安装，需要具体版本</span></span><br><span class="line">pip install <span class="string">&quot;pywinrm&gt;=0.2.2&quot;</span>  <span class="comment"># 这样安装</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="2-测试ping探测windows客户主机是否存活"><a href="#2-测试ping探测windows客户主机是否存活" class="headerlink" title="2. 测试ping探测windows客户主机是否存活"></a>2. 测试ping探测windows客户主机是否存活</h6><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ansible win -m win_ping</span><br></pre></td></tr></table></figure>
+
+<h6 id="3-测试文件管理"><a href="#3-测试文件管理" class="headerlink" title="3. 测试文件管理"></a>3. 测试文件管理</h6><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">测试在windows主机执行远程创建目录</span><br><span class="line"><span class="comment"># ansible win -m win_file -a &#x27;dest=c:\config_dir state=directory&#x27;</span></span><br><span class="line"></span><br><span class="line">测试将ansible主机上的/etc/hosts文件同步到windows主机的指定目录下</span><br><span class="line"><span class="comment"># ansible win -m win_copy -a &#x27;src=/etc/hosts dest=c:\config_dir\hosts.txt&#x27;</span></span><br><span class="line"></span><br><span class="line">删除文件</span><br><span class="line"><span class="comment"># ansible win -m win_file -a &#x27;dest=c:\config_dir\hosts.txt state=absent&#x27;</span></span><br><span class="line"></span><br><span class="line">删除目录</span><br><span class="line"><span class="comment"># ansible win -m win_file -a &#x27;dest=c:\config_dir2 state=absent&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="4-测试远程执行cmd命令"><a href="#4-测试远程执行cmd命令" class="headerlink" title="4. 测试远程执行cmd命令"></a>4. 测试远程执行cmd命令</h6><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ansible win -m win_shell -a &#x27;ipconfig&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="5-远程重启windows服务器"><a href="#5-远程重启windows服务器" class="headerlink" title="5. 远程重启windows服务器"></a>5. 远程重启windows服务器</h6><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ansible 172.16.10.23 -m win_reboot</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ansible 172.16.10.23 -m win_shell -a &#x27;shutdown -r -t 0&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="6-Windows服务管理"><a href="#6-Windows服务管理" class="headerlink" title="6. Windows服务管理"></a>6. Windows服务管理</h6><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Ansible命令格式：</span><br><span class="line">ansible [主机|主机组] -m win_shell -a “net stop|start 服务名”</span><br></pre></td></tr></table></figure>
+
+<h6 id="7-测试创建用户-远程在windows客户端上创建用户"><a href="#7-测试创建用户-远程在windows客户端上创建用户" class="headerlink" title="7. 测试创建用户(远程在windows客户端上创建用户)"></a>7. 测试创建用户(远程在windows客户端上创建用户)</h6><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ansible win -m win_user -a &quot;name=winuser passwd=windows&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="8-使用举例"><a href="#8-使用举例" class="headerlink" title="8. 使用举例"></a>8. 使用举例</h6><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ansible-console</span><br><span class="line">root@all (3)[f:10]$ <span class="built_in">cd</span> win</span><br><span class="line">root@win (1)[f:10]$ list</span><br><span class="line">172.16.37.3</span><br><span class="line">root@win (1)[f:10]$ win_hostname name=win2k2016  <span class="comment">#更改主机名</span></span><br><span class="line">172.16.37.3 | CHANGED =&gt; &#123;</span><br><span class="line">    <span class="string">&quot;changed&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">&quot;old_name&quot;</span>: <span class="string">&quot;WIN-UIS7GLE4Q9K&quot;</span>,</span><br><span class="line">    <span class="string">&quot;reboot_required&quot;</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line">root@win (1)[f:10]$ win_reboot msg=<span class="string">&quot;Ansible reboot in next 15s!!!&quot;</span> pre_reboot_delay=15  <span class="comment">#重启机器</span></span><br><span class="line">172.16.37.3 | CHANGED =&gt; &#123;</span><br><span class="line">    <span class="string">&quot;changed&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">&quot;elapsed&quot;</span>: 190,</span><br><span class="line">    <span class="string">&quot;rebooted&quot;</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line">root@win (1)[f:10]$ win_</span><br><span class="line">Display all 106 possibilities? (y or n)</span><br><span class="line">win_acl                      win_environment              win_netbios                  win_scheduled_task</span><br><span class="line">win_acl_inheritance          win_eventlog                 win_nssm                     win_scheduled_task_stat</span><br><span class="line">win_audit_policy_system      win_eventlog_entry           win_optional_feature         win_security_policy</span><br><span class="line">win_audit_rule               win_feature                  win_owner                    win_service</span><br><span class="line">win_certificate_store        win_file                     win_package                  win_share</span><br></pre></td></tr></table></figure>
+<h4 id="常用的ansible-模块"><a href="#常用的ansible-模块" class="headerlink" title="常用的ansible 模块"></a>常用的ansible 模块</h4><p>参考地址：</p>
+<p><a target="_blank" rel="noopener" href="http://www.yunweipai.com/go?_=1c6a53dc99aHR0cHM6Ly9kb2NzLmFuc2libGUuY29tL2Fuc2libGUvbGF0ZXN0L21vZHVsZXMvbW9kdWxlc19ieV9jYXRlZ29yeS5odG1s">https://docs.ansible.com/ansible/latest/modules/modules_by_category.html</a></p>
+<hr>
+<p>常用的模块：</p>
+<p><code>ping</code>，<code>command</code> ，<code>shell</code> ，<code>script</code>，<code>copy</code> ， <code>fetch</code>，<code>hostname</code>，<code>file</code>，<code>unarchive</code>  ， <code>archive</code>，<code>yum</code>，<code>cron</code>，<code>service</code>，<code>user</code> ， <code>group</code>，<code>lineinfile</code> ，<code>replace</code>，<code>setup</code>…</p>
+<p>command &amp; shell:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 注意区别和相同</span></span><br><span class="line"><span class="comment"># command 不能识别变量以及引号内容</span></span><br><span class="line">root@unix (2)[f:10]$ <span class="built_in">command</span> <span class="built_in">echo</span> <span class="variable">$HOSTNAME</span></span><br><span class="line">172.16.37.2 | CHANGED | rc=0 &gt;&gt;</span><br><span class="line"><span class="variable">$HOSTNAME</span></span><br><span class="line">172.16.37.4 | CHANGED | rc=0 &gt;&gt;</span><br><span class="line"><span class="variable">$HOSTNAME</span></span><br><span class="line">root@unix (2)[f:10]$ shell <span class="built_in">echo</span> <span class="variable">$HOSTNAME</span></span><br><span class="line">172.16.37.2 | CHANGED | rc=0 &gt;&gt;</span><br><span class="line">ansible-master</span><br><span class="line">172.16.37.4 | CHANGED | rc=0 &gt;&gt;</span><br><span class="line">ansible-node1</span><br><span class="line">root@node1 (1)[f:10]$ shell <span class="built_in">echo</span> passwd |passwd --stdin <span class="built_in">test</span></span><br><span class="line">172.16.37.4 | CHANGED | rc=0 &gt;&gt;</span><br><span class="line">更改用户 <span class="built_in">test</span> 的密码 。</span><br><span class="line">passwd：所有的身份验证令牌已经成功更新。</span><br><span class="line">root@node1 (1)[f:10]$ <span class="built_in">command</span> <span class="built_in">echo</span> passwd |passwd --stdin <span class="built_in">test</span></span><br><span class="line">172.16.37.4 | CHANGED | rc=0 &gt;&gt;</span><br><span class="line">passwd |passwd --stdin <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+
+<p>unarchive &amp; archive:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ansible all -m unarchive -a <span class="string">&#x27;src=/tmp/foo.zip dest=/data copy=no mode=0777&#x27;</span></span><br><span class="line">ansible all -m unarchive -a <span class="string">&#x27;src=https://example.com/example.zip dest=/data copy=no&#x27;</span></span><br><span class="line">ansible websrvs -m archive  -a <span class="string">&#x27;path=/var/log/ dest=/data/log.tar.bz2 format=bz2  owner=wang mode=0600&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>cron:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#备份数据库脚本</span></span><br><span class="line">[root@centos8 ~]<span class="comment">#cat mysql_backup.sh </span></span><br><span class="line">mysqldump -A -F --single-transaction --master-data=2 -q -uroot |gzip &gt; /data/mysql_date +%F_%T.sql.gz</span><br><span class="line"><span class="comment">#创建任务</span></span><br><span class="line">ansible 10.0.0.8 -m cron -a <span class="string">&#x27;hour=2 minute=30 weekday=1-5 name=&quot;backup mysql&quot; job=/root/mysql_backup.sh&#x27;</span></span><br><span class="line">ansible websrvs   -m cron -a <span class="string">&quot;minute=*/5 job=&#x27;/usr/sbin/ntpdate 172.20.0.1 &amp;&gt;/dev/null&#x27; name=Synctime&quot;</span></span><br><span class="line"><span class="comment">#禁用计划任务</span></span><br><span class="line">ansible websrvs   -m cron -a <span class="string">&quot;minute=*/5 job=&#x27;/usr/sbin/ntpdate 172.20.0.1 &amp;&gt;/dev/null&#x27; name=Synctime disabled=yes&quot;</span></span><br><span class="line"><span class="comment">#启用计划任务</span></span><br><span class="line">ansible websrvs   -m cron -a <span class="string">&quot;minute=*/5 job=&#x27;/usr/sbin/ntpdate 172.20.0.1 &amp;&gt;/dev/null&#x27; name=Synctime disabled=no&quot;</span></span><br><span class="line"><span class="comment">#删除任务</span></span><br><span class="line">ansible websrvs -m cron -a <span class="string">&quot;name=&#x27;backup mysql&#x27; state=absent&quot;</span></span><br><span class="line">ansible websrvs -m cron -a <span class="string">&#x27;state=absent name=Synctime&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>service:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ansible all -m service -a <span class="string">&#x27;name=httpd state=started enabled=yes&#x27;</span></span><br><span class="line">ansible all -m service -a <span class="string">&#x27;name=httpd state=stopped&#x27;</span></span><br><span class="line">ansible all -m service -a <span class="string">&#x27;name=httpd state=reloaded’</span></span><br><span class="line"><span class="string">ansible all -m shell -a &quot;sed -i &#x27;</span>s/^Listen 80/Listen 8080/<span class="string">&#x27; /etc/httpd/conf/httpd.conf&quot;</span></span><br><span class="line"><span class="string">ansible all -m service -a &#x27;</span>name=httpd state=restarted<span class="string">&#x27; </span></span><br></pre></td></tr></table></figure>
+
+<p>user &amp; group:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#创建用户</span></span><br><span class="line">ansible all -m user -a <span class="string">&#x27;name=user1 comment=“test user” uid=2048 home=/app/user1 group=root&#x27;</span></span><br><span class="line">ansible all -m user -a <span class="string">&#x27;name=nginx comment=nginx uid=88 group=nginx groups=&quot;root,daemon&quot; shell=/sbin/nologin system=yes create_home=no  home=/data/nginx non_unique=yes&#x27;</span></span><br><span class="line"><span class="comment">#删除用户及家目录等数据</span></span><br><span class="line">ansible all -m user -a <span class="string">&#x27;name=nginx state=absent remove=yes&#x27;</span></span><br><span class="line"><span class="comment">#创建组</span></span><br><span class="line">ansible websrvs -m group  -a <span class="string">&#x27;name=nginx gid=88 system=yes&#x27;</span></span><br><span class="line"><span class="comment">#删除组</span></span><br><span class="line">ansible websrvs -m group  -a <span class="string">&#x27;name=nginx state=absent&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>lineinfile:</p>
+<p>ansible在使用sed进行替换时，经常会遇到需要转义的问题，而且ansible在遇到特殊符号进行替换时，存在问题，无法正常进行替换 。其实在ansible自身提供了两个模块：lineinfile模块和replace模块，可以方便的进行替换功能：相当于sed，可以修改文件内容</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ansible all -m   lineinfile -a <span class="string">&quot;path=/etc/selinux/config regexp=&#x27;^SELINUX=&#x27; line=&#x27;SELINUX=enforcing&#x27;&quot;</span></span><br><span class="line">ansible all -m lineinfile  -a <span class="string">&#x27;dest=/etc/fstab state=absent regexp=&quot;^#&quot;&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>replace:</p>
+<p>该模块有点类似于sed命令，主要也是基于正则进行匹配和替换</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ansible all -m replace -a <span class="string">&quot;path=/etc/fstab regexp=&#x27;^(UUID.*)&#x27; replace=&#x27;#\1&#x27;&quot;</span>  </span><br><span class="line">ansible all -m replace -a <span class="string">&quot;path=/etc/fstab regexp=&#x27;^#(.*)&#x27; replace=&#x27;\1&#x27;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>setup:</p>
+<p>setup 模块来收集主机的系统信息，这些 facts 信息可以直接以变量的形式使用，但是如果主机较多，会影响执行速度，可以使用<code>gather_facts: no</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ansible all -m setup</span><br><span class="line">ansible all -m setup -a <span class="string">&quot;filter=ansible_os_family</span></span><br><span class="line"><span class="string">ansible all -m setup -a &quot;</span>filter=ansible_hostname<span class="string">&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>  <a target="_blank" rel="noopener" href="https://www.cnblogs.com/keerya/p/7987886.html">https://www.cnblogs.com/keerya/p/7987886.html</a></p>
+<p>  <a target="_blank" rel="noopener" href="https://www.cnblogs.com/keerya/p/8004566.html">https://www.cnblogs.com/keerya/p/8004566.html</a></p>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Ansible/" rel="tag"># Ansible</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/09/20/ansible-detailed-start/" rel="prev" title="ansible-detailed-start">
+                  <i class="fa fa-chevron-left"></i> ansible-detailed-start
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/09/20/openshift-setup-with-ansible/" rel="next" title="openshift-setup-with-ansible-playbook">
+                  openshift-setup-with-ansible-playbook <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jason Hu</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script size="300" alpha="0.6" zIndex="-1" src="[object Object]"></script>
+
+
+  <script src="[object Object]"></script>
+  <script src="/%5Bobject%20Object%5D"></script>
+  <script src="/%5Bobject%20Object%5D"></script>
+
+
+<script>
+var options = {
+  bottom: '64px', // default: '32px'
+  right: 'unset', // default: '32px'
+  left: '32px', // default: 'unset'
+  time: '0.5s', // default: '0.3s'
+  mixColor: '#fff', // default: '#fff'
+  backgroundColor: '#fff',  // default: '#fff'
+  buttonColorDark: '#100f2c',  // default: '#100f2c'
+  buttonColorLight: '#fff', // default: '#fff'
+  saveInCookies: true, // default: true,
+  label: '🌓', // default: ''
+  autoMatchOsTheme: true // default: true
+}
+const darkmode = new Darkmode(options);
+darkmode.showWidget();
+</script>
+
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":false,"archive":false,"delay":true,"timeout":3000,"priority":true,"url":"http://example.com/2022/09/20/ansible-manage-windows-server/"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+
+</body>
+</html>

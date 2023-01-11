@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/manifest.json">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.loli.net/css?family=Ubuntu:300,300italic,400,400italic,700,700italic%7CPT+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.13.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Create Azure Arc-enabled SQLMI Instance On-PremisesPrerequisites &amp; environments   Servers CPU &amp; MEM Role OS    node1.io 4Core 16GB k8s master centos7.8   node2.io 4Core 20GB k8s worker centos7">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Create Azure Arc-enabled sqlmi Instance On-Premises k8s clsuter">
+<meta property="og:url" content="http://example.com/2023/01/11/Create-Azure-Arc-Enabled-SQLMI-Instance-On-Premises/index.html">
+<meta property="og:site_name" content="OSS.MSFT.VIP">
+<meta property="og:description" content="Create Azure Arc-enabled SQLMI Instance On-PremisesPrerequisites &amp; environments   Servers CPU &amp; MEM Role OS    node1.io 4Core 16GB k8s master centos7.8   node2.io 4Core 20GB k8s worker centos7">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/1715511-20220909100338097-1615601437.png">
+<meta property="og:image" content="http://example.com/images/1715511-20220909100450574-1462693194.png">
+<meta property="og:image" content="http://example.com/images/1715511-20220909100700776-934704336.png">
+<meta property="article:published_time" content="2023-01-11T13:15:07.041Z">
+<meta property="article:modified_time" content="2023-01-11T13:15:07.041Z">
+<meta property="article:author" content="Jason Hu">
+<meta property="article:tag" content="sqlmi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/1715511-20220909100338097-1615601437.png">
+
+
+<link rel="canonical" href="http://example.com/2023/01/11/Create-Azure-Arc-Enabled-SQLMI-Instance-On-Premises/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2023/01/11/Create-Azure-Arc-Enabled-SQLMI-Instance-On-Premises/","path":"2023/01/11/Create-Azure-Arc-Enabled-SQLMI-Instance-On-Premises/","title":"Create Azure Arc-enabled sqlmi Instance On-Premises k8s clsuter"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Create Azure Arc-enabled sqlmi Instance On-Premises k8s clsuter | OSS.MSFT.VIP</title>
+  
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+  <script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">OSS.MSFT.VIP</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">爱国，求是，奋进！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Create-Azure-Arc-enabled-SQLMI-Instance-On-Premises"><span class="nav-number">1.</span> <span class="nav-text">Create Azure Arc-enabled SQLMI Instance On-Premises</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Prerequisites-amp-environments"><span class="nav-number">1.1.</span> <span class="nav-text">Prerequisites &amp; environments</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Setup-k8s-clsuter-on-premises"><span class="nav-number">1.2.</span> <span class="nav-text">Setup k8s clsuter on-premises</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Instructions"><span class="nav-number">1.2.1.</span> <span class="nav-text">Instructions</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-data-controller"><span class="nav-number">1.3.</span> <span class="nav-text">Create data controller:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-SQLMI-instance"><span class="nav-number">1.4.</span> <span class="nav-text">Create SQLMI instance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Connect-with-SQLMI-insatnce"><span class="nav-number">1.5.</span> <span class="nav-text">Connect with SQLMI insatnce</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Manager-data-with-Azure-Data-Studio"><span class="nav-number">1.6.</span> <span class="nav-text">Manager data with Azure Data Studio</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason Hu"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Jason Hu</p>
+  <div class="site-description" itemprop="description">OSS.MSFT.VIP</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Jas0n0ss" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Jas0n0ss" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:Jas0n0ss@gmail.com" title="E-Mail → mailto:Jas0n0ss@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/Jas0n0ss" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/11/Create-Azure-Arc-Enabled-SQLMI-Instance-On-Premises/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Jason Hu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OSS.MSFT.VIP">
+      <meta itemprop="description" content="OSS.MSFT.VIP">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Create Azure Arc-enabled sqlmi Instance On-Premises k8s clsuter | OSS.MSFT.VIP">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Create Azure Arc-enabled sqlmi Instance On-Premises k8s clsuter<a href="https://github.com/Jas0n0ss/Jas0n0ss.github.io/tree/main/source/_posts/Create-Azure-Arc-Enabled-SQLMI-Instance-On-Premises.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-01-11 13:15:07" itemprop="dateCreated datePublished" datetime="2023-01-11T13:15:07+00:00">2023-01-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/sqlmi/" itemprop="url" rel="index"><span itemprop="name">sqlmi</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/sqlmi/k8s-on-prem/" itemprop="url" rel="index"><span itemprop="name">k8s on-prem</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="Create-Azure-Arc-enabled-SQLMI-Instance-On-Premises"><a href="#Create-Azure-Arc-enabled-SQLMI-Instance-On-Premises" class="headerlink" title="Create Azure Arc-enabled SQLMI Instance On-Premises"></a>Create Azure Arc-enabled SQLMI Instance On-Premises</h2><h3 id="Prerequisites-amp-environments"><a href="#Prerequisites-amp-environments" class="headerlink" title="Prerequisites &amp; environments"></a>Prerequisites &amp; environments</h3><table>
+<thead>
+<tr>
+<th align="center">Servers</th>
+<th align="center">CPU &amp; MEM</th>
+<th align="center">Role</th>
+<th align="center">OS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">node1.io</td>
+<td align="center">4Core 16GB</td>
+<td align="center">k8s master</td>
+<td align="center">centos7.8</td>
+</tr>
+<tr>
+<td align="center">node2.io</td>
+<td align="center">4Core 20GB</td>
+<td align="center">k8s worker</td>
+<td align="center">centos7.8</td>
+</tr>
+<tr>
+<td align="center">node3.io</td>
+<td align="center">4Core 20GB</td>
+<td align="center">k8s worker</td>
+<td align="center">centos7.8</td>
+</tr>
+</tbody></table>
+<h3 id="Setup-k8s-clsuter-on-premises"><a href="#Setup-k8s-clsuter-on-premises" class="headerlink" title="Setup k8s clsuter on-premises"></a>Setup k8s clsuter on-premises</h3><p><a target="_blank" rel="noopener" href="https://github.com/microsoft/sql-server-samples/tree/master/samples/features/sql-big-data-cluster/deployment/kubeadm/ubuntu">Setup k8s clsuter on-premises on Ubuntu</a></p>
+<h4 id="Instructions"><a href="#Instructions" class="headerlink" title="Instructions"></a>Instructions</h4><ul>
+<li>Start a sudo shell context and Execute <code>setup-k8s-prereqs.sh</code> script on each machine</li>
+<li>Execute <code>setup-k8s-master.sh </code>script on the machine designated as Kubernetes master (not under sudo su as otherwise you’ll setup K8S .kube&#x2F;config permissions for root)</li>
+<li>After successful initialization of the Kubernetes master, follow the kubeadm join commands output by the setup script on each agent machine</li>
+<li>Execute <code>setup-volumes-agent.sh</code> script on each agent machine to create volumes for local storage</li>
+<li>Execute <code>kubectl apply -f local-storage-provisioner.yaml</code> against the Kubernetes cluster to create the local storage provisioner. This will create a Storage Class named “local-storage”.</li>
+</ul>
+<h3 id="Create-data-controller"><a href="#Create-data-controller" class="headerlink" title="Create data controller:"></a>Create data controller:</h3><p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/azure/azure-arc/data/create-data-controller-indirect-cli?tabs=windows">create-data-controller-indirect-cli</a></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@node1 arc]<span class="comment"># kubectl get storageclasses.storage.k8s.io</span></span><br><span class="line">NAME            PROVISIONER                    RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE</span><br><span class="line">local-storage   kubernetes.io/no-provisioner   Delete          WaitForFirstConsumer   <span class="literal">false</span>                  39h  </span><br><span class="line">[root@node2 ~]<span class="comment"># cat /etc/fstab | grep data</span></span><br><span class="line">UUID=49d8fe73-dfc5-4bca-9006-7c3feebdf3fc /data xfs defaults 0 0</span><br><span class="line">[root@node2 ~]<span class="comment"># df -Th | grep &#x27;/data&#x27;</span></span><br><span class="line">/dev/sdb1                 xfs       500G  568M  500G   1% /data</span><br><span class="line">tmpfs                     tmpfs     9.8G  4.0M  9.8G   1% /var/lib/kubelet/pods/5092d08d-a693-4550-b127-35ce23c261cc/volumes/kubernetes.io~empty-dir/data</span><br><span class="line">[root@node2 ~]<span class="comment"># ls /data/local-storage/</span></span><br><span class="line">vol1   vol11  vol13  vol15  vol17  vol19  vol20  vol22  vol24  vol26  vol28  vol3   </span><br><span class="line">[root@node1 arc]<span class="comment"># kubectl get pv -n local-storage</span></span><br><span class="line">NAME                CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM                                            STORAGECLASS    REASON   AGE</span><br><span class="line">local-pv-119ebf20   499Gi      RWO            Delete           Available                                                    local-storage            23h</span><br><span class="line">local-pv-1245a771   499Gi      RWO            Delete           Available                                                    local-storage            23h</span><br><span class="line">local-pv-13a47426   499Gi      RWO            Delete           Bound       arc/logs-metricsdb-0                             local-storage            39h</span><br><span class="line">[root@node1 arc]<span class="comment"># az arcdata dc create --connectivity-mode indirect --name onpremises --k8s-namespace arc --subscription xxxx-xxxxx-xxxx-xxxx --resource-group azarclab --location eastus --storage-class local-storage --profile-name azure-arc-kubeadm --infrastructure onpremises --use-k8s</span></span><br><span class="line">Subscription <span class="string">&#x27;xxxx-xxxxx-xxxx-xxxx&#x27;</span> not recognized.</span><br><span class="line">To not see this warning, first login to Azure.</span><br><span class="line"></span><br><span class="line">Using subscription <span class="string">&#x27;xxxx-xxxxx-xxxx-xxxx&#x27;</span>.</span><br><span class="line"></span><br><span class="line">Monitoring administrator username:admin</span><br><span class="line">Monitoring administrator password:</span><br><span class="line">Confirm Monitoring administrator password:</span><br><span class="line"></span><br><span class="line">Deploying data controller</span><br><span class="line"></span><br><span class="line">NOTE: Data controller creation can take a significant amount of time depending on</span><br><span class="line">configuration, network speed, and the number of nodes <span class="keyword">in</span> the cluster.</span><br><span class="line"></span><br><span class="line">Data controller successfully deployed.</span><br><span class="line">&#123;&#125;</span><br><span class="line">[root@node1 arc]<span class="comment"># kubectl get datacontroller -n arc</span></span><br><span class="line">NAME         STATE</span><br><span class="line">onpremises   Ready</span><br><span class="line">[root@node1 arc]<span class="comment"># kubectl get pod -n arc | grep -v sql</span></span><br><span class="line">NAME                           READY   STATUS      RESTARTS   AGE</span><br><span class="line">arc-bootstrapper-job-94x7m     0/1     Completed   0          14h</span><br><span class="line">bootstrapper-cbf5bf94d-z9l95   1/1     Running     1          14h</span><br><span class="line">control-f5d8t                  2/2     Running     0          14h</span><br><span class="line">controldb-0                    2/2     Running     0          14h</span><br><span class="line">logsdb-0                       3/3     Running     0          14h</span><br><span class="line">logsui-896pw                   3/3     Running     3          14h</span><br><span class="line">metricsdb-0                    2/2     Running     2          14h</span><br><span class="line">metricsdc-2lr8t                2/2     Running     0          14h</span><br><span class="line">metricsdc-79h4t                2/2     Running     2          14h</span><br><span class="line">metricsui-zjwnr                2/2     Running     0          14h</span><br></pre></td></tr></table></figure>
+
+<h3 id="Create-SQLMI-instance"><a href="#Create-SQLMI-instance" class="headerlink" title="Create SQLMI instance"></a>Create SQLMI instance</h3><p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/azure/azure-arc/data/create-sql-managed-instance?tabs=indirectly">create-sql-managed-instance-with-azure-cli</a></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">PS C:\Users\hubo&gt; az sql mi-arc create --name sql1 --k8s-namespace arc --use-k8s --time-zone Asia/Shanghai --agent-enabled <span class="literal">true</span> --dev --tier BusinessCritical --replicas 2</span><br><span class="line">Deploying sql1 <span class="keyword">in</span> namespace `arc`</span><br><span class="line">sql1 is Ready</span><br><span class="line">[root@node1 arc]<span class="comment"># kubectl get pod -n arc</span></span><br><span class="line">NAME                           READY   STATUS      RESTARTS   AGE</span><br><span class="line">arc-bootstrapper-job-94x7m     0/1     Completed   0          14h</span><br><span class="line">bootstrapper-cbf5bf94d-z9l95   1/1     Running     1          14h</span><br><span class="line">control-f5d8t                  2/2     Running     0          14h</span><br><span class="line">controldb-0                    2/2     Running     0          14h</span><br><span class="line">logsdb-0                       3/3     Running     0          14h</span><br><span class="line">logsui-896pw                   3/3     Running     3          14h</span><br><span class="line">metricsdb-0                    2/2     Running     2          14h</span><br><span class="line">metricsdc-2lr8t                2/2     Running     0          14h</span><br><span class="line">metricsdc-79h4t                2/2     Running     2          14h</span><br><span class="line">metricsui-zjwnr                2/2     Running     0          14h</span><br><span class="line">sql1-0                         4/4     Running     0          31m</span><br><span class="line">sql1-1                         4/4     Running     0          31m</span><br><span class="line">sql1-ha-0                      2/2     Running     0          32m</span><br></pre></td></tr></table></figure>
+<h3 id="Connect-with-SQLMI-insatnce"><a href="#Connect-with-SQLMI-insatnce" class="headerlink" title="Connect with SQLMI insatnce"></a>Connect with SQLMI insatnce</h3><figure class="highlight asciidoc"><table><tr><td class="code"><pre><span class="line">[root@node1 arc]# kubectl get sqlmi -n arc</span><br><span class="line">NAME   STATUS   REPLICAS   PRIMARY-ENDPOINT     AGE</span><br><span class="line">sql1   Ready    2          10.157.21.15,32697   22m</span><br><span class="line">[root@node1 arc]# yum install mssql-tools -y</span><br><span class="line">[root@node1 arc]# /opt/mssql-tools/bin/sqlcmd -S 10.157.21.15,32697 -Uadmin -Q <span class="emphasis">&#x27;select @@version&#x27;</span></span><br><span class="line"><span class="section">Password:                                                                                                                                                                     </span></span><br><span class="line"><span class="section">--------------------------------------------------------</span></span><br><span class="line">Microsoft Azure SQL Managed Instance - Azure Arc - 16.0.312.4243 (X64)</span><br><span class="line"><span class="code">        Jul  2 2022 13:16:53</span></span><br><span class="line"><span class="code">        Copyright (C) 2022 Microsoft Corporation</span></span><br><span class="line"><span class="code">        Business Critical (64-bit) on Linux (Ubuntu 20.04.4 LTS) &lt;X64&gt;</span></span><br><span class="line"></span><br><span class="line">(1 rows affected)</span><br></pre></td></tr></table></figure>
+<h3 id="Manager-data-with-Azure-Data-Studio"><a href="#Manager-data-with-Azure-Data-Studio" class="headerlink" title="Manager data with Azure Data Studio"></a>Manager data with Azure Data Studio</h3><p>Azure Data Studio:<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio?view=sql-server-ver16">https://docs.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio?view=sql-server-ver16</a></p>
+<p><img src="/../images/1715511-20220909100338097-1615601437.png"></p>
+<p>kibana Dashboard:<br><img src="/../images/1715511-20220909100450574-1462693194.png"></p>
+<p>Grafana Dashboard<br><img src="/../images/1715511-20220909100700776-934704336.png"></p>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/sqlmi/" rel="tag"># sqlmi</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/01/11/arc-enbaled-sqlmi-instance/" rel="prev" title="Create Azure Arc-enabled sqlmi instance using OpenShift tool">
+                  <i class="fa fa-chevron-left"></i> Create Azure Arc-enabled sqlmi instance using OpenShift tool
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/01/11/jelyll-Tutorial/" rel="next" title="jelyll Tutorial">
+                  jelyll Tutorial <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jason Hu</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script size="300" alpha="0.6" zIndex="-1" src="[object Object]"></script>
+
+
+  <script src="[object Object]"></script>
+  <script src="/%5Bobject%20Object%5D"></script>
+  <script src="/%5Bobject%20Object%5D"></script>
+
+
+<script>
+var options = {
+  bottom: '64px', // default: '32px'
+  right: 'unset', // default: '32px'
+  left: '32px', // default: 'unset'
+  time: '0.5s', // default: '0.3s'
+  mixColor: '#fff', // default: '#fff'
+  backgroundColor: '#fff',  // default: '#fff'
+  buttonColorDark: '#100f2c',  // default: '#100f2c'
+  buttonColorLight: '#fff', // default: '#fff'
+  saveInCookies: true, // default: true,
+  label: '🌓', // default: ''
+  autoMatchOsTheme: true // default: true
+}
+const darkmode = new Darkmode(options);
+darkmode.showWidget();
+</script>
+
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":false,"archive":false,"delay":true,"timeout":3000,"priority":true,"url":"http://example.com/2023/01/11/Create-Azure-Arc-Enabled-SQLMI-Instance-On-Premises/"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+
+</body>
+</html>
